@@ -1,0 +1,27 @@
+ADMIN
+     |Banner
+        |__Banner-add
+        |__Banner-list
+        |__Banner-Edit
+     |__MOVIE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Banner :  - Lấy dữ liệu, get data banner truyền sang cho Banner-list 
+            - Xử lý dữ liệu theo id Banner-edit gửi ra rồi truyền ngược vào cho Banner-edit
+
+    - Banner-edit:  - Xử lý dữ liệu đc truyền vào xong put lên server (nếu ảnh để trống thì không thay đổi ảnh, nếu chọn ảnh mới gửi kèm link ảnh cũ để server xóa ảnh)
+    - Banner-list:  - Layout list theo dữ liệu đc truyền cho.
+    - Banner-add:   - Gửi req POST lên server để thêm dữ liệu vào database

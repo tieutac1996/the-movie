@@ -1,0 +1,64 @@
+.banner__edit {
+  &-detail {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+
+    width: 1140px;
+    margin: auto;
+  }
+
+  .text > div {
+    b {
+      display: inline-block;
+      width: 100px;
+      vertical-align: top;
+    }
+ 
+    input,
+    textarea {
+      width: calc(100% - 100px);
+      display: inline-block;
+      border: 1px solid #fff;
+      box-sizing: border-box;
+      height: 30px;
+
+      padding: 0 10px;
+    }
+    textarea {
+      height: 150px;
+    }
+
+    button {
+      color: #fff;
+      font-size: 15px;
+      padding: 7px 15px;
+      border: 1px solid #000;
+      margin-top: 20px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      -o-border-radius: 5px;
+    }
+    .save {
+      background-color: green;
+    }
+    .canner {
+      background-color: red;
+      margin-left: 25px;
+    }
+
+    margin: 0 0 20px;
+  }
+
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+
+  top: 0;
+  left: 0;
+  background-color: #000;
+}
