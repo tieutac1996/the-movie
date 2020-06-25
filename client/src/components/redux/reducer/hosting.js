@@ -1,5 +1,5 @@
 const defaultState = {
-  value: 'http://localhost:8080',
+  value: '',
 };
 
 
