@@ -5,23 +5,21 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 BannerList.propTypes = {
   bannerData: PropTypes.array,
-  hosting: PropTypes.string,
 };
 
 BannerList.defaultProps = {
   bannerData: null,
-  hosting: null,
 };
 
 function BannerList(props) {
-  const { bannerData, hosting } = props;
+  const { bannerData } = props;
   if (!bannerData) {
     return <div></div>;
   }
 
   async function handleDelete(id) {
     await axios
-      .delete(`${hosting}/banner/${id}`)
+      .delete(`/banner/${id}`)
       .then((res) => {
         if (res.status === 200) {
           alert('Đã xóa thành công.');

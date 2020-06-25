@@ -11,14 +11,9 @@ BannerAdd.defaultProps = {
 };
 
 function BannerAdd(props) {
-  const { hosting } = props;
   const [data, setData] = useState({});
   const [file, setFile] = useState();
   const [preview, setPreview] = useState({});
-
-  if (!hosting) {
-    return <div></div>;
-  }
 
   async function onUpload() {
     const formData = new FormData();
@@ -29,7 +24,7 @@ function BannerAdd(props) {
     formData.append('image', file);
 
     await axios({
-      url: `${hosting}/banner`,
+      url: '/banner',
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data',

@@ -15,7 +15,7 @@ BannerEdit.defaultProps = {
 };
 
 function BannerEdit(props) {
-  const { bannerDataID, hosting, onGetId } = props;
+  const { bannerDataID, onGetId } = props;
 
   const params = useParams();
 
@@ -64,7 +64,7 @@ function BannerEdit(props) {
     }
 
     await axios({
-      url: `${hosting}/banner/${bannerDataID._id}`,
+      url: `/banner/${bannerDataID._id}`,
       method: 'PUT',
       headers: {
         'Content-Type': 'multipart/form-data',
