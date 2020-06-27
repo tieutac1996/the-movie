@@ -26,20 +26,30 @@ module.exports = {
     const title = req.body.title;
     const tags = req.body.tags;
     const premium = req.body.premium;
-    const image = req.body.image;
+    const image = '/uploads/film/' + req.file.filename;
     const url = req.body.url;
-
+    const title_en = req.body.title_en;
+    const director = req.body.director;
+    const release_date = req.body.release_date;
+    const nation = req.body.nation;
+    const duration = req.body.duration;
+    const description = req.body.description;
     const newMovie = new Movie({
       title,
+      title_en,
       tags,
       premium,
       image,
       url,
+      director,
+      release_date,
+      nation,
+      duration,
+      description,
     });
-
     newMovie
       .save()
-      .then(() => res.json('Exercise added'))
+      .then((data) => res.json(data))
       .catch((err) => res.status(500).json('Error: ' + err));
   },
 };

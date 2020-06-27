@@ -1,13 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 import './app.css';
-
-import Main from './components/Main';
-import Header from './components/Header';
-
-import store from './components/redux/store';
 import Admin from './components/Admin';
+import store from './components/redux/store';
+
 function App() {
   const admin = window.location.pathname.search('/admin');
 
@@ -15,9 +16,7 @@ function App() {
     <div className='container'>
       <Provider store={store}>
         <Router>
-          {admin === -1 && <Header />}
           <Switch>
-            <Route path='/' exact component={Main} />
             <Route path='/admin' component={Admin} />
           </Switch>
         </Router>

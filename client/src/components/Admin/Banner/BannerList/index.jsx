@@ -5,21 +5,28 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 BannerList.propTypes = {
   bannerData: PropTypes.array,
+  hosting: PropTypes.string,
+  onHandleEdit: PropTypes.func,
 };
 
 BannerList.defaultProps = {
   bannerData: null,
+  hosting: null,
+  onHandleEdit: null,
 };
 
 function BannerList(props) {
-  const { bannerData } = props;
+  const { bannerData, hosting } = props;
   if (!bannerData) {
     return <div></div>;
   }
 
-  async function handleDelete(id) {
-    await axios
-      .delete(`/banner/${id}`)
+  async function handleDelete(id, image) {
+    await axios({
+      url: `${hosting}/banner/${id}`,
+      method: 'DELETE',
+      data: { image: image },
+    })
       .then((res) => {
         if (res.status === 200) {
           alert('Đã xóa thành công.');
@@ -55,12 +62,12 @@ function BannerList(props) {
               </div>
 
               <div className='button'>
-                <Link to={`/admin/banner/banner-edit/${map._id}`}>
+                <Link to={`/admin/banner/edit/${map._id}`}>
                   <button className='edit'>Sửa</button>
                 </Link>
                 <button
                   className='delete'
-                  onClick={() => handleDelete(map._id)}
+                  onClick={() => handleDelete(map._id, map.image)}
                 >
                   Xóa
                 </button>

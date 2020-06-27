@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const path = require('path');
 
 require('dotenv').config();
@@ -12,13 +12,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI, {
-  useUnifiedTopology: true,
   useNewUrlParser: true,
-  useCreateIndex: true,
-});
-
-mongoose.connection.on('Connection', () => {
-  console.log('Mongoose is connected');
+  useUnifiedTopology: true,
 });
 
 const routes = require('./routes/index');
@@ -30,5 +25,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Server is Started Port:' + port);
+  console.log('Server is Started Port: ' + port);
 });

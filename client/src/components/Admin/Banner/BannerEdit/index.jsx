@@ -15,7 +15,7 @@ BannerEdit.defaultProps = {
 };
 
 function BannerEdit(props) {
-  const { bannerDataID, onGetId } = props;
+  const { bannerDataID, hosting, onGetId } = props;
 
   const params = useParams();
 
@@ -25,6 +25,7 @@ function BannerEdit(props) {
   const [data, setData] = useState(bannerDataID);
   const [file, setFile] = useState();
   const [preview, setPreview] = useState({});
+  const [updating, setUpdating] = useState();
 
   const urlPreviewImg = file ? (
     <img src={preview.imagePreviewUrl} alt='' />
@@ -32,7 +33,6 @@ function BannerEdit(props) {
     ''
   );
   function handleChange() {}
-
   if (!data) {
     return <div></div>;
   }
@@ -54,7 +54,8 @@ function BannerEdit(props) {
       reader.readAsDataURL(file);
     }
   }
-  async function handleSave() {
+  async function handleUpdate() {
+    setUpdating('Đang cập nhật...');
     const formData = new FormData();
     const object = Object.entries(data);
     object.map((map) => formData.append(map[0], map[1]));
@@ -62,9 +63,8 @@ function BannerEdit(props) {
     if (file) {
       formData.append('imgRemove', './client/public/' + bannerDataID.image);
     }
-
     await axios({
-      url: `/banner/${bannerDataID._id}`,
+      url: `${hosting}/banner/${bannerDataID._id}`,
       method: 'PUT',
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -73,7 +73,10 @@ function BannerEdit(props) {
     })
       .then((res) => {
         if (res.status === 200) {
-          alert('Update thành cống');
+          setUpdating('Cập nhật thành công');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         }
       })
       .catch((err) => console.log(err));
@@ -82,24 +85,25 @@ function BannerEdit(props) {
     <div className='banner__edit'>
       <div className='banner__edit-detail'>
         <div className='text'>
-          <div className='title'>
-            <b>Tên phim:</b>
+          <label>
+            <b>Tên:</b>
             <input
               type='text'
               name='title'
               value={data.title}
               onChange={handleChange}
             />
-          </div>
-          <div className='desc'>
+          </label>
+          <label>
             <b>Mô tả:</b>
             <textarea
+              type='text'
               name='description'
               value={data.description}
               onChange={handleChange}
             />
-          </div>
-          <div className='evaluate'>
+          </label>
+          <label>
             <b>Đánh giá:</b>
             <input
               type='text'
@@ -107,31 +111,27 @@ function BannerEdit(props) {
               value={data.evaluate}
               onChange={handleChange}
             />
-          </div>
-          <div className='duration'>
+          </label>
+          <label>
             <b>Thời lượng:</b>
             <input
-              type='text'
+              type='number'
               name='duration'
               value={data.duration}
               onChange={handleChange}
             />
-          </div>
-          <i style={{ display: 'block', color: 'red', margin: '20px 0' }}>
-            Chọn để upload ảnh mới, để trống nếu không thay đổi ảnh
-          </i>
-          <input type='file' name='file' onChange={(e) => handleFile(e)} />
-          <div>{urlPreviewImg}</div>
-          <div className='button'>
-            <button className='save' onClick={handleSave}>
-              Lưu
+          </label>
+          <label>
+            <input type='file' name='image' onChange={(e) => handleFile(e)} />
+            <div className='updating'>{updating}</div>
+            <button className='update' onClick={handleUpdate}>
+              Cập nhật
             </button>
             <button className='canner'>Hủy</button>
-          </div>
+          </label>
         </div>
-        <div className='banner_image'>
-          <img src={bannerDataID.image} alt='' />
-        </div>
+        <img src={bannerDataID.image} alt='' />
+        <div>{urlPreviewImg}</div>
       </div>
     </div>
   );

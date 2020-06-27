@@ -4,10 +4,16 @@ const Schema = mongoose.Schema;
 const movieSchema = new Schema(
   {
     title: { type: String, required: true },
+    title_en: { type: String },
+    description: { type: String, required: true },
+    director: { type: String },
+    nation: { type: String },
+    release_date: { type: String },
     tags: { type: Array, required: true },
     url: { type: String, required: true },
     premium: { type: Boolean },
     image: { type: String, required: true },
+    duration: { type: Number },
   },
   { timestamps: true }
 );
