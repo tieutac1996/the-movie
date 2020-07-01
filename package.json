@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "proxy":"http://localhost:8080",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
@@ -30,3 +31,4 @@
     "nodemon": "^2.0.4"
   }
 }
+
