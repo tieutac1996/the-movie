@@ -39,7 +39,6 @@ function Banner(props) {
                 <span className='tags'>{map.tags}</span>
               </div>
               <div className='banner_description'>
-                <span>Mô tả: </span>
                 {map.description}
               </div>
               <div className='watch'>
