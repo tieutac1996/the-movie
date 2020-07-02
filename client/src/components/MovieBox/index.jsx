@@ -5,25 +5,45 @@ import Slider from 'react-slick';
 import './index.scss';
 MovieBox.propTypes = {
   data: PropTypes.array,
-  row: PropTypes.number,
 };
 
 MovieBox.defaultProps = {
   data: null,
-  row: null,
 };
 function MovieBox(props) {
-  const { data, row } = props;
+  const { data } = props;
   if (!data) {
     return <div></div>;
   }
+
+  const row = data.length > 6;
+
   var settings = {
     slidesToShow: 5,
     rows: row ? row : 1,
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
-    slidesToScroll: 1,
+    slidesPerRow: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+    ],
   };
 
   return (

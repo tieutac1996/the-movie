@@ -54,7 +54,7 @@
         -moz-transition: ease-in-out 0.2s;
         -ms-transition: ease-in-out 0.2s;
         -o-transition: ease-in-out 0.2s;
-}
+      }
       .watch:hover {
         background-color: rgb(145, 0, 0);
         border-color: rgb(145, 0, 0);
@@ -82,7 +82,7 @@
         -moz-transition: ease-in-out 0.2s;
         -ms-transition: ease-in-out 0.2s;
         -o-transition: ease-in-out 0.2s;
-}
+      }
       .add-list:hover {
         background-color: rgb(56, 56, 56);
         border-color: rgb(56, 56, 56);
@@ -90,7 +90,7 @@
       }
 
       font-size: 18px;
-      width: 1140px;
+      max-width: 1140px;
       margin: 0 auto;
       line-height: 2.5;
     }
@@ -104,4 +104,32 @@
 .carousel-control-next-icon,
 .carousel-control-prev-icon {
   display: none !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .banner_caption {
+    padding: 30px 20px !important;
+
+    .watch {
+      padding: 0 15px !important;
+      font-size: 15px;
+    }
+    .add-list {
+      padding: 0 15px !important;
+      font-size: 15px;
+    }
+  }
+}
+@media screen and (max-width: 320px) {
+  .banner_caption {
+    .watch {
+      padding: 0 15px !important;
+      font-size: 13px;
+    }
+    .add-list {
+      padding: 0 10px !important;
+      font-size: 13px;
+     margin-left: 5px!important;
+    }
+  }
 }

@@ -8,7 +8,7 @@ function Navbar() {
   const [offset, setOffset] = useState();
   const style =
     offset > 0
-      ? { backgroundColor: '#1d69b1e6' }
+      ? { backgroundColor: 'rgba(0, 42, 95, 0.9)' }
       : { backgroundColor: 'transparent' };
   function showDesktop() {
     setToggle(false);
