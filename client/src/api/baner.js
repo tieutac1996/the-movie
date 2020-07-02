@@ -31,7 +31,7 @@ export async function createBannerUpload(data, image) {
 export async function deleteBannerForID(id, filename) {
   let response = {};
   await axios({
-    url: process.env.REACT_APP_API_URL + '/banner' + `/${id}`,
+    url: `${process.env.REACT_APP_API_URL}/banner/${id}`,
     method: 'DELETE',
 
     data: { image: filename },
@@ -70,7 +70,7 @@ export async function editBannerForId(data, image) {
     formData.append('image', image, filename);
   }
   await axios({
-    url: process.env.REACT_APP_API_URL + '/banner' + `/${data._id}`,
+    url: `${process.env.REACT_APP_API_URL}/banner/${data._id}`,
     method: 'PUT',
     headers: {
       'Content-Type': 'multipart/form-data',

@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import MovieBox from 'components/MovieBox';
+import React, { useState, useEffect } from 'react';
+import { getMovieForType } from 'api/movie';
 
-Popular.propTypes = {
-  data: PropTypes.array,
-};
+function Popular() {
+  const [data, setData] = useState([]);
 
-Popular.defaultProps = {
-  data: null,
-};
+  useEffect(() => {
+    async function fetchData() {
+      setData(await getMovieForType('popular'));
+    }
+    fetchData();
+  }, []);
 
-function Popular(props) {
-  const { data } = props;
   if (!data) {
     return <div></div>;
   }

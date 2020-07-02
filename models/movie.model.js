@@ -15,6 +15,7 @@ const movieSchema = new Schema(
     evaluate: { type: Number, required: true },
     premium: { type: Boolean },
     image: { type: String, required: true },
+    poster: { type: String, required: true },
     duration: { type: Number },
   },
   { timestamps: true }

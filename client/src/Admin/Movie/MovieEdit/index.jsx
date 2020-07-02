@@ -11,9 +11,10 @@ import MOVIE from 'Config/movie.input';
 
 function MovieEdit() {
   const params = useParams();
-
   const [file, setFile] = useState();
+  const [poster, setPoster] = useState();
   const [preview, setPreview] = useState({});
+  const [previewPoster, setPreviewPoster] = useState({});
   const [updating, setUpdating] = useState();
   const [data, setData] = useState();
   const [tags, setTags] = useState();
@@ -30,12 +31,16 @@ function MovieEdit() {
   if (!data || !tags || !type) {
     return <div></div>;
   }
-  console.log(file);
-
+  console.log(data.poster);
   const urlPreviewImg = file ? (
     <img src={preview.imagePreviewUrl} alt='' />
   ) : (
     <img src={data.image} alt='' />
+  );
+  const urlPreviewImgPoster = poster ? (
+    <img src={previewPoster.imagePreviewUrl} alt='' />
+  ) : (
+    <img src={data.poster} alt='' />
   );
   function handleChange(e) {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -47,6 +52,20 @@ function MovieEdit() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview({
+          file: file,
+          imagePreviewUrl: reader.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  function handlePoster(e) {
+    const file = e.target.files[0];
+    setPoster(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewPoster({
           file: file,
           imagePreviewUrl: reader.result,
         });
@@ -70,6 +89,7 @@ function MovieEdit() {
       setTags(data);
     }
   }
+
   function handleFilter(name) {
     const check = type.some((some) => some === name);
     if (!check) {
@@ -89,7 +109,7 @@ function MovieEdit() {
 
   async function handleEditMovie() {
     setUpdating('Upload...');
-    const a = await editMovie(data, file, tags);
+    const a = await editMovie(data, file, tags, poster, type);
 
     if (a.status === 200) {
       setUpdating('Upload thành công.');
@@ -243,7 +263,12 @@ function MovieEdit() {
         </label>
         <div className='uploaded'>{updating}</div>
         <label>
+          <span>Banner: </span>
           <input type='file' name='image' onChange={(e) => handleFile(e)} />
+        </label>
+        <label>
+          <span>Poster: </span>
+          <input type='file' name='poster' onChange={(e) => handlePoster(e)} />
         </label>
         <button className='edit' onClick={handleEditMovie}>
           Lưu
@@ -252,6 +277,7 @@ function MovieEdit() {
           <Link to='/admin/movie'>Hủy</Link>
         </button>
         <div style={{ marginTop: '10px' }}>{urlPreviewImg}</div>
+        <div style={{ marginTop: '10px' }}>{urlPreviewImgPoster}</div>
       </div>
     </div>
   );

@@ -6,13 +6,20 @@ import './index.scss';
 function MovieAdd(props) {
   const [data, setData] = useState({});
   const [file, setFile] = useState();
+  const [poster, setPoster] = useState();
   const [tags, setTags] = useState([]);
   const [type, setType] = useState([]);
   const [uploaded, setUploaded] = useState();
   const [preview, setPreview] = useState({});
+  const [previewPoster, setPreviewPoster] = useState({});
 
   const urlPreviewImg = file ? (
     <img src={preview.imagePreviewUrl} alt='' />
+  ) : (
+    ''
+  );
+  const urlPreviewImgPoster = poster ? (
+    <img src={previewPoster.imagePreviewUrl} alt='' />
   ) : (
     ''
   );
@@ -20,11 +27,11 @@ function MovieAdd(props) {
     if (!data.title || !data.description || !data.url || !data.evaluate) {
       return alert('Không được để trống những mục có *');
     }
-    if (!file) {
-      return alert('Phải có file trước khi Upload');
+    if (!file || !poster) {
+      return alert('Phải có file , poster trước khi Upload');
     }
     setUploaded('Đang Upload...');
-    const a = await addMovie(data, file, tags, type);
+    const a = await addMovie(data, file, tags, type, poster);
     if (a.status === 200) {
       setUploaded('Upload thành công.');
       setTimeout(() => {
@@ -51,7 +58,20 @@ function MovieAdd(props) {
       reader.readAsDataURL(file);
     }
   }
-
+  function handlePoster(e) {
+    const file = e.target.files[0];
+    setPoster(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewPoster({
+          file: file,
+          imagePreviewUrl: reader.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   function handleCheckBox(name) {
     const check = tags.some((some) => some === name);
     if (!check) {
@@ -163,10 +183,16 @@ function MovieAdd(props) {
         </label>
         <div className='uploaded'>{uploaded}</div>
         <label>
+          <span>Banner: </span>
           <input type='file' name='image' onChange={(e) => handleFile(e)} />
-          <button onClick={onUpload}>Upload</button>
         </label>
+        <label>
+          <span>Poster: </span>
+          <input type='file' name='poster' onChange={(e) => handlePoster(e)} />
+        </label>
+        <button onClick={onUpload}>Upload</button>
         <div style={{ marginTop: '10px' }}>{urlPreviewImg}</div>
+        <div style={{ marginTop: '10px' }}>{urlPreviewImgPoster}</div>
       </div>
     </div>
   );

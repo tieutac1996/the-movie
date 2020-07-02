@@ -1,21 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import MovieBox from 'components/MovieBox';
+import React, { useState, useEffect } from 'react';
+import { getMovieForType } from 'api/movie';
 
-Premium.propTypes = {
-  data: PropTypes.array,
-};
+function Premium() {
+  const [data, setData] = useState([]);
 
-Premium.defaultProps = {
-  data: null,
-};
+  useEffect(() => {
+    async function fetchData() {
+      setData(await getMovieForType('premium'));
+    }
+    fetchData();
+  }, []);
 
-function Premium(props) {
-  const { data } = props;
   if (!data) {
     return <div></div>;
   }
-  console.log(data);
   return <MovieBox data={data} />;
 }
 

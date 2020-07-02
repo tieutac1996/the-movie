@@ -1,7 +1,7 @@
 import xoa_dau from 'Config/xoadau';
 import axios from 'axios';
 
-export async function addMovie(data, image, tags, type) {
+export async function addMovie(data, image, tags, type, poster) {
   let response = {};
 
   const formData = new FormData();
@@ -12,12 +12,14 @@ export async function addMovie(data, image, tags, type) {
   //Thêm image vào FormData và filename
   const filename = xoa_dau(data.title.replace(/ /g, '-')).toLowerCase();
   formData.append('image', image, filename);
+  formData.append('poster', poster, filename + '-poster');
+
   //Xử lý tags rồi vào FormData
   formData.append('tags', JSON.stringify(tags));
   formData.append('type', JSON.stringify(type));
 
   await axios({
-    url: process.env.REACT_APP_API_URL + '/movie',
+    url: `${process.env.REACT_APP_API_URL}/movie`,
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -32,7 +34,7 @@ export async function addMovie(data, image, tags, type) {
     });
   return response;
 }
-export async function editMovie(data, image, tag) {
+export async function editMovie(data, image, tag, poster, type) {
   let response = {};
 
   const formData = new FormData();
@@ -46,11 +48,16 @@ export async function editMovie(data, image, tag) {
     const filename = xoa_dau(data.title.replace(/ /g, '-')).toLowerCase();
     formData.append('image', image, filename);
   }
+  if (poster) {
+    //Thêm image vào FormData và filename
+    const filename = xoa_dau(data.title.replace(/ /g, '-')).toLowerCase();
+    formData.append('poster', poster, filename + '-poster');
+  }
   //Xử lý tags rồi vào FormData
   formData.append('newTags', JSON.stringify(tag));
-
+  formData.append('newType', JSON.stringify(type));
   await axios({
-    url: process.env.REACT_APP_API_URL + '/movie',
+    url: `${process.env.REACT_APP_API_URL}/movie`,
     method: 'PUT',
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -69,7 +76,7 @@ export async function editMovie(data, image, tag) {
 export async function deleteMovie(id, filename) {
   let response = {};
   await axios({
-    url: process.env.REACT_APP_API_URL + '/movie',
+    url: `${process.env.REACT_APP_API_URL}/movie`,
     method: 'DELETE',
     data: { id: id, filename: filename },
   })
@@ -86,7 +93,7 @@ export async function deleteMovie(id, filename) {
 export async function getAllMovie() {
   let response = {};
   await axios({
-    url: process.env.REACT_APP_API_URL + '/movie',
+    url: `${process.env.REACT_APP_API_URL}/movie`,
     method: 'GET',
   })
     .then((res) => {
@@ -101,7 +108,7 @@ export async function getAllMovie() {
 export async function getMovieForID(id) {
   let response = {};
   await axios({
-    url: process.env.REACT_APP_API_URL + '/movie' + `/${id}`,
+    url: `${process.env.REACT_APP_API_URL}/movie/id/${id}`,
     method: 'GET',
   })
     .then((res) => {
@@ -116,7 +123,7 @@ export async function getMovieForID(id) {
 export async function getMovieTagsForID(id) {
   let response = {};
   await axios({
-    url: process.env.REACT_APP_API_URL + '/movie' + `/${id}`,
+    url: `${process.env.REACT_APP_API_URL}/movie/id/${id}`,
     method: 'GET',
   })
     .then((res) => {
@@ -130,7 +137,7 @@ export async function getMovieTagsForID(id) {
 export async function getMovieTypeForID(id) {
   let response = {};
   await axios({
-    url: process.env.REACT_APP_API_URL + '/movie' + `/${id}`,
+    url: `${process.env.REACT_APP_API_URL}/movie/id/${id}`,
     method: 'GET',
   })
     .then((res) => {
@@ -141,10 +148,38 @@ export async function getMovieTypeForID(id) {
     });
   return JSON.parse(response);
 }
+export async function getMovieForTag(query) {
+  let response = {};
+  await axios({
+    url: `${process.env.REACT_APP_API_URL}/movie/tags/?tags=${query}`,
+    method: 'GET',
+  })
+    .then((res) => {
+      response = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return response;
+}
+export async function getMovieForType(query) {
+  let response = {};
+  await axios({
+    url: `${process.env.REACT_APP_API_URL}/movie/type/?type=${query}`,
+    method: 'GET',
+  })
+    .then((res) => {
+      response = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return response;
+}
 export async function deleteMovieForSelectID(select) {
   let response = {};
   await axios({
-    url: process.env.REACT_APP_API_URL + '/movie' + `/s`,
+    url: `${process.env.REACT_APP_API_URL}/movie/s`,
     method: 'POST',
     data: select,
   })

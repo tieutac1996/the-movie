@@ -5,13 +5,13 @@ module.exports = {
   findAll: (req, res) => {
     Movie.find()
       .then((movie) => res.json(movie))
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => res.status(50).json(err));
   },
-  findByTags: (req, res) => {
-    Movie.find({ tags: req.param.category })
-      .then((movie) => res.json(movie))
-      .catch((err) => res.status(500).json(err));
-  },
+  // findByTags: (req, res) => {
+  //   Movie.find({ tags: req.param.category })
+  //     .then((movie) => res.json(movie))
+  //     .catch((err) => res.status(500).json(err));
+  // },
   findById: (req, res) => {
     Movie.findById(req.params.id)
       .then((data) => {
@@ -24,8 +24,8 @@ module.exports = {
       .then((e) => {
         e.title = req.body.title;
         e.tags = req.body.newTags;
-        e.premium = req.body.premium;
         e.image = req.body.image;
+        e.poster = req.body.poster;
         e.url = req.body.url;
         e.title_en = req.body.title_en;
         e.director = req.body.director;
@@ -34,14 +34,23 @@ module.exports = {
         e.evaluate = req.body.evaluate;
         e.duration = req.body.duration;
         e.description = req.body.description;
-        e.type = req.body.type;
-        if (req.file) {
+        e.type = req.body.newType;
+        if (req.files.image) {
           // Định dạng file giống nhau sẽ ghi đè
-          e.image = '/uploads/film/' + req.file.filename;
+          e.image = '/uploads/film/' + req.files.image[0].filename;
 
           // Kiểm tra định dạng file khác nhau thì xóa file cũ
           if (req.body.image !== e.image) {
             unlinkAsync('./client/build' + req.body.image);
+          }
+        }
+        if (req.files.poster) {
+          // Định dạng file giống nhau sẽ ghi đè
+          e.poster = '/uploads/film/' + req.files.poster[0].filename;
+
+          // Kiểm tra định dạng file khác nhau thì xóa file cũ
+          if (req.body.poster !== e.poster) {
+            unlinkAsync('./client/build' + req.body.poster);
           }
         }
         e.save()
@@ -56,9 +65,9 @@ module.exports = {
   },
   add: (req, res) => {
     const title = req.body.title;
+    const poster = '/uploads/film/' + req.files.poster[0].filename;
     const tags = req.body.tags;
-    const premium = req.body.premium;
-    const image = '/uploads/film/' + req.file.filename;
+    const image = '/uploads/film/' + req.files.image[0].filename;
     const url = req.body.url;
     const title_en = req.body.title_en;
     const director = req.body.director;
@@ -72,7 +81,6 @@ module.exports = {
       title,
       title_en,
       tags,
-      premium,
       image,
       url,
       director,
@@ -82,6 +90,7 @@ module.exports = {
       description,
       evaluate,
       type,
+      poster,
     });
     newMovie
       .save()
@@ -96,17 +105,40 @@ module.exports = {
           Message: 'Delete Complete',
         })
       )
-      .catch((err) => {
-        res.status(500).json('Error: ' + err);
-      });
+      .catch((err) => res.status(500).json('Error: ' + err));
   },
   deleteMulti: (req, res) => {
     Movie.deleteMany({
       _id: { $in: req.body },
     })
       .then(() => res.json({ Message: 'Delete Complete' }))
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => res.status(500).json('Error: ' + err));
+  },
+  getMovieForTag: (req, res) => {
+    Movie.find()
+      .then((movie) => {
+        const data = movie.filter((filter) => {
+          if (filter.tags.search(req.query.tags) > 0) {
+            return true;
+          }
+          return false;
+        });
+        res.json(data);
+      })
+      .catch((err) => res.status(500).json('Error: ' + err));
+  },
+  getMovieForType: (req, res) => {
+    Movie.find()
+      .then((movie) => {
+        const data = movie.filter((filter) => {
+          if (filter.type.search(req.query.type) > 0) {
+            return true;
+          }
+          return false;
+        });
+
+        res.json(data);
+      })
+      .catch((err) => res.status(500).json('Error: ' + err));
   },
 };

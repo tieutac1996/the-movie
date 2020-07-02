@@ -1,6 +1,6 @@
 .movieBox {
   &-items {
-    margin: 0 20px;
+    padding: 0 10px !important;
   }
   &-title {
     font-size: 16px;
@@ -30,11 +30,21 @@
       }
     }
   }
+  &-premium {
+    position: absolute;
+    z-index: 9;
+    left: 150px;
+    bottom: 0px;
+    color: yellow;
+  }
   .card {
     &-body {
       padding: 20px 0;
     }
     background-color: transparent !important;
+  }
+  .slick-track {
+    margin: 0 !important;
   }
   margin: 20px 0;
 }

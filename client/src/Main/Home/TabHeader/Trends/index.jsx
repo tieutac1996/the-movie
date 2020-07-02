@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { getMovieForType } from 'api/movie';
 import MovieBox from 'components/MovieBox';
+import React, { useEffect, useState } from 'react';
 
-Trends.propTypes = {
-  data: PropTypes.array,
-};
+function Trends() {
+  const [data, setData] = useState([]);
 
-Trends.defaultProps = {
-  data: null,
-};
+  useEffect(() => {
+    async function fetchData() {
+      setData(await getMovieForType('trends'));
+    }
+    fetchData();
+  }, []);
 
-function Trends(props) {
-  const { data } = props;
   if (!data) {
     return <div></div>;
   }
