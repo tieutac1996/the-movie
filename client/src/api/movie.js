@@ -17,9 +17,8 @@ export async function addMovie(data, image, tags, type, poster) {
   //Xử lý tags rồi vào FormData
   formData.append('tags', JSON.stringify(tags));
   formData.append('type', JSON.stringify(type));
-
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie`,
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -57,7 +56,7 @@ export async function editMovie(data, image, tag, poster, type) {
   formData.append('newTags', JSON.stringify(tag));
   formData.append('newType', JSON.stringify(type));
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie`,
     method: 'PUT',
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -76,7 +75,7 @@ export async function editMovie(data, image, tag, poster, type) {
 export async function deleteMovie(id, filename) {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie`,
     method: 'DELETE',
     data: { id: id, filename: filename },
   })
@@ -93,7 +92,7 @@ export async function deleteMovie(id, filename) {
 export async function getAllMovie() {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie`,
     method: 'GET',
   })
     .then((res) => {
@@ -108,7 +107,7 @@ export async function getAllMovie() {
 export async function getMovieForID(id) {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie/id/${id}`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie/id/${id}`,
     method: 'GET',
   })
     .then((res) => {
@@ -123,7 +122,7 @@ export async function getMovieForID(id) {
 export async function getMovieTagsForID(id) {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie/id/${id}`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie/id/${id}`,
     method: 'GET',
   })
     .then((res) => {
@@ -137,7 +136,7 @@ export async function getMovieTagsForID(id) {
 export async function getMovieTypeForID(id) {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie/id/${id}`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie/id/${id}`,
     method: 'GET',
   })
     .then((res) => {
@@ -151,7 +150,7 @@ export async function getMovieTypeForID(id) {
 export async function getMovieForTag(query) {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie/tags/?tags=${query}`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie/tags/?tags=${query}`,
     method: 'GET',
   })
     .then((res) => {
@@ -165,7 +164,7 @@ export async function getMovieForTag(query) {
 export async function getMovieForType(query) {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie/type/?type=${query}`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie/type/?type=${query}`,
     method: 'GET',
   })
     .then((res) => {
@@ -179,7 +178,7 @@ export async function getMovieForType(query) {
 export async function deleteMovieForSelectID(select) {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/movie/s`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie/s`,
     method: 'POST',
     data: select,
   })

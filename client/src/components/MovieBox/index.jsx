@@ -24,7 +24,6 @@ function MovieBox(props) {
     infinite: false,
     speed: 500,
     slidesToScroll: 1,
-    centerPadding: '10px',
   };
 
   return (

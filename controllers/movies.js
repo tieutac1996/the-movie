@@ -7,11 +7,7 @@ module.exports = {
       .then((movie) => res.json(movie))
       .catch((err) => res.status(50).json(err));
   },
-  // findByTags: (req, res) => {
-  //   Movie.find({ tags: req.param.category })
-  //     .then((movie) => res.json(movie))
-  //     .catch((err) => res.status(500).json(err));
-  // },
+
   findById: (req, res) => {
     Movie.findById(req.params.id)
       .then((data) => {
