@@ -150,7 +150,7 @@ export async function getMovieTypeForID(id) {
 export async function getMovieForTag(query) {
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/api/movie/tags/?tags=${query}`,
+    url: `${process.env.REACT_APP_API_URL}/api/movie/tags/?tags=${query}&_page=1&_limit=10`,
     method: 'GET',
   })
     .then((res) => {

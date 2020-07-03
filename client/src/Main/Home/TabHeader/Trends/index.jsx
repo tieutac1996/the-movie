@@ -1,6 +1,6 @@
 import { getMovieForType } from 'api/movie';
-import MovieBox from 'components/MovieBox';
 import React, { useEffect, useState } from 'react';
+import MovieBoxSlide from 'components/MovieBoxSlide';
 
 function Trends() {
   const [data, setData] = useState([]);
@@ -15,7 +15,7 @@ function Trends() {
   if (!data) {
     return <div></div>;
   }
-  return <MovieBox data={data} />;
+  return <MovieBoxSlide data={data} />;
 }
 
 export default Trends;

@@ -38,9 +38,7 @@ function Banner(props) {
                 {map.evaluate}
                 <span className='tags'>{map.tags}</span>
               </div>
-              <div className='banner_description'>
-                {map.description}
-              </div>
+              <div className='banner_description'>{map.description}</div>
               <div className='watch'>
                 <i className='fas fa-play'></i>
                 <span>Xem ngay</span>

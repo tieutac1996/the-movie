@@ -1,10 +1,10 @@
+import Header from 'components/Header';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './app.css';
 import Admin from './Admin';
+import './app.css';
 import store from './components/redux/store';
-import Header from 'components/Header';
 import Main from 'Main';
 
 function App() {

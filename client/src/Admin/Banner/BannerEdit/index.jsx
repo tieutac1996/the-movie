@@ -1,4 +1,4 @@
-import { editBannerForId } from 'api/baner';
+import { editBannerForId } from 'api/banner';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -35,7 +35,6 @@ function BannerEdit(props) {
   if (!data) {
     return <div></div>;
   }
-
   function handleChange(e) {
     setData({ ...data, [e.target.name]: e.target.value });
   }
@@ -100,6 +99,24 @@ function BannerEdit(props) {
               type='number'
               name='duration'
               value={data.duration}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            <b>Tùy chọn:</b>
+            <input
+              type='text'
+              name='tags'
+              value={data.tags}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            <b>Link:</b>
+            <input
+              type='text'
+              name='url'
+              value={data.url}
               onChange={handleChange}
             />
           </label>

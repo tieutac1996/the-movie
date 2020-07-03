@@ -37,6 +37,8 @@ module.exports = {
         e.description = req.body.description;
         e.evaluate = req.body.evaluate;
         e.duration = req.body.duration;
+        e.url = req.body.url;
+        e.tags = req.body.tags;
         if (req.file) {
           e.image = '/uploads/banner/' + req.file.filename;
         }

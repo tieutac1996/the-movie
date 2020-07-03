@@ -64,7 +64,7 @@ export async function editBannerForId(data, image) {
   for (let prop in data) {
     formData.append(prop, data[prop]);
   }
-  console.log(image);
+
   if (image) {
     const filename = xoa_dau(data.title.replace(/ /g, '-')).toLowerCase();
     formData.append('image', image, filename);

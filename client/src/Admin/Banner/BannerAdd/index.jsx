@@ -1,4 +1,4 @@
-import { createBannerUpload } from 'api/baner';
+import { createBannerUpload } from 'api/banner';
 import React, { useState } from 'react';
 import './index.scss';
 

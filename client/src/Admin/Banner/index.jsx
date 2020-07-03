@@ -1,4 +1,4 @@
-import { getALlDataBanner } from 'api/baner';
+import { getALlDataBanner } from 'api/banner';
 import React, { useEffect, useState } from 'react';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import BannerAdd from './BannerAdd';

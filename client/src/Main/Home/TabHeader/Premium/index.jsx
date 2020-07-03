@@ -1,6 +1,6 @@
-import MovieBox from 'components/MovieBox';
-import React, { useState, useEffect } from 'react';
 import { getMovieForType } from 'api/movie';
+import MovieBoxSlide from 'components/MovieBoxSlide';
+import React, { useEffect, useState } from 'react';
 
 function Premium() {
   const [data, setData] = useState([]);
@@ -15,7 +15,7 @@ function Premium() {
   if (!data) {
     return <div></div>;
   }
-  return <MovieBox data={data} />;
+  return <MovieBoxSlide data={data} />;
 }
 
 export default Premium;

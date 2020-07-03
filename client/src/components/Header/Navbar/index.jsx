@@ -30,7 +30,9 @@ function Navbar() {
   return (
     <div className='nav_bar' style={style}>
       <div className='logo'>
-        <img src='/images/logo.png' alt='' />
+        <a href='/'>
+          <img src='/images/logo.png' alt='' />
+        </a>
       </div>
       <div className='menu' style={styleMenu}>
         <div className='menu_content'>

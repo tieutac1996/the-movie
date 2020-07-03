@@ -3,9 +3,26 @@ const unlinkAsync = require('./removeImage');
 
 module.exports = {
   findAll: (req, res) => {
-    Movie.find()
-      .then((movie) => res.json(movie))
-      .catch((err) => res.status(50).json(err));
+    if (req.query._page) {
+      Movie.find()
+        .then((movie) => {
+          const start = req.query._page * req.query._limit - req.query._limit;
+          const end = start + parseInt(req.query._limit);
+          const data = movie.slice(start, end);
+          return res.json({
+            data: data,
+            pagination: {
+              _page: req.query._page,
+              _total: movie.length,
+            },
+          });
+        })
+        .catch((err) => res.status(50).json(err));
+    } else {
+      Movie.find()
+        .then((movie) => res.json(movie))
+        .catch((err) => res.status(50).json(err));
+    }
   },
 
   findById: (req, res) => {
@@ -60,7 +77,7 @@ module.exports = {
       });
   },
   add: (req, res) => {
-    const title = req.body.title;
+    const title = req.body.title.toLowerCase();
     const poster = '/uploads/film/' + req.files.poster[0].filename;
     const tags = req.body.tags;
     const image = '/uploads/film/' + req.files.image[0].filename;
@@ -111,17 +128,40 @@ module.exports = {
       .catch((err) => res.status(500).json('Error: ' + err));
   },
   getMovieForTag: (req, res) => {
-    Movie.find()
-      .then((movie) => {
-        const data = movie.filter((filter) => {
-          if (filter.tags.search(req.query.tags) > 0) {
-            return true;
-          }
-          return false;
-        });
-        res.json(data);
-      })
-      .catch((err) => res.status(500).json('Error: ' + err));
+    if (req.query._page) {
+      Movie.find()
+        .then((movie) => {
+          const start = req.query._page * req.query._limit - req.query._limit;
+          const end = start + parseInt(req.query._limit);
+          const data = movie.filter((filter) => {
+            if (filter.tags.search(req.query.tags) > 0) {
+              return true;
+            }
+            return false;
+          });
+          const newData = data.slice(start, end);
+          return res.json({
+            data: newData,
+            pagination: {
+              _page: req.query._page,
+              _total: movie.length,
+            },
+          });
+        })
+        .catch((err) => res.status(50).json(err));
+    } else {
+      Movie.find()
+        .then((movie) => {
+          const data = movie.filter((filter) => {
+            if (filter.tags.search(req.query.tags) > 0) {
+              return true;
+            }
+            return false;
+          });
+          res.json(data);
+        })
+        .catch((err) => res.status(500).json('Error: ' + err));
+    }
   },
   getMovieForType: (req, res) => {
     Movie.find()
