@@ -9,6 +9,11 @@
     }
     .description {
       line-height: 1.8;
+      display: -webkit-box;
+      -webkit-line-clamp: 10;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .watch,
     .add-list {
@@ -49,11 +54,6 @@
       background-color: rgb(76, 42, 201);
       cursor: pointer;
     }
-    position: absolute;
-    width: 38%;
-    top: 0;
-    left: 0;
-    z-index: 9;
   }
   .image {
     .after {
@@ -71,4 +71,18 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   position: relative;
+}
+
+@media screen and (max-width: 720px) {
+  .top {
+    .image {
+      order: 0;
+    }
+    .content {
+      order: 1;
+    }
+    display: flex !important;
+    flex-direction: column;
+    padding: 20px;
+  }
 }

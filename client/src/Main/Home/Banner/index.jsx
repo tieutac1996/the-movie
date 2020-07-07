@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import './index.scss';
+import { Link } from 'react-router-dom';
 
 Banner.propTypes = {
   banner: PropTypes.array,
@@ -41,7 +42,9 @@ function Banner(props) {
               <div className='banner_description'>{map.description}</div>
               <div className='watch'>
                 <i className='fas fa-play'></i>
-                <span>Xem ngay</span>
+                <Link to={`/movie/`}>
+                  <span>Xem ngay</span>
+                </Link>
               </div>
               <div className='add-list'>
                 <i className='fas fa-plus'></i>

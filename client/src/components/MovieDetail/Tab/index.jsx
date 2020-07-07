@@ -11,7 +11,6 @@ function Tab(props) {
   if (!data) {
     return <div></div>;
   }
-  console.log(data);
   return (
     <div className='movie-detail_tab'>
       <Tabs defaultActiveKey='overview' id='uncontrolled-tab-example'>

@@ -29,13 +29,13 @@ function Original(props) {
             <i className='fas fa-plus'></i>
             <span>Xem sau</span>
           </div>
-          <i  className='fas fa-thumbs-up icon'></i>
-          <i className='fas fa-thumbs-down icon'></i>
         </div>
+        <i className='fas fa-thumbs-up icon'></i>
+        <i className='fas fa-thumbs-down icon'></i>
       </div>
       <div className='image'>
         <img src={data.image} alt='' />
-        <div className="after"></div>
+        <div className='after'></div>
       </div>
     </div>
   );
