@@ -16,6 +16,7 @@ router
     movieController.editMovie
   );
 router.route('/id/:id').get(movieController.findById);
+router.route('/title/:title').get(movieController.findByTitleTag);
 router.route('/tags/').get(movieController.getMovieForTag);
 router.route('/type/').get(movieController.getMovieForType);
 router.route('/s').post(movieController.deleteMulti);

@@ -18,10 +18,15 @@ function Movie() {
   return (
     <div className='movie'>
       <Switch>
-        <Route path='/movie/:id' component={MovieDetail} />
-        <Route>
+        <Route path='/movie/:title' component={MovieDetail} />
+        <Route
+          path='/movie/'
+          exact
+          component={() => <MovieBox data={data} />}
+        />
+        {/* <Route>
           <MovieBox data={data} />
-        </Route>
+        </Route> */}
       </Switch>
     </div>
   );

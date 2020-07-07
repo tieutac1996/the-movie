@@ -53,7 +53,7 @@ function MovieBoxSlide(props) {
       <Slider {...settings}>
         {data.map((data, key) => (
           <Col key={key} className='movieBoxSlide-items'>
-            <Link to={`/movie/${data._id}`}>
+            <Link to={`/movie/${data.title_tag}`}>
               <Card>
                 <Card.Img
                   className='movieBoxSlide-img'

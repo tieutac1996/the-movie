@@ -1,25 +1,32 @@
-import { getMovieForID } from 'api/movie';
+import { getMovieForTitleTag } from 'api/movie';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import { Helmet } from 'react-helmet';
+import Original from './Original';
+import Tab from './Tab';
 function MovieDetail() {
   const params = useParams();
   const [data, setData] = useState();
   useEffect(() => {
     async function fetchData() {
-      const a = await getMovieForID(params.id);
+      const a = await getMovieForTitleTag(params.title);
       setData(a);
     }
     fetchData();
-  }, [params.id]);
+  }, [params.title]);
 
   if (!data) {
     return <div></div>;
   }
-
   return (
     <div>
-      <h1 style={{ margin: '100px auto' }}>{data.title}</h1>
+      <Helmet>
+        <title>{data.title}</title>
+      </Helmet>
+      <div className='detail-movie'>
+        <Original data={data} />
+        <Tab data={data} />
+      </div>
     </div>
   );
 }

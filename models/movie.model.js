@@ -5,6 +5,7 @@ const movieSchema = new Schema(
   {
     title: { type: String, required: true },
     title_en: { type: String },
+    title_tag: { type: String },
     description: { type: String, required: true },
     director: { type: String },
     nation: { type: String },

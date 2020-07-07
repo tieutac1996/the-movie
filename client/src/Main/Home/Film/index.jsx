@@ -24,7 +24,9 @@ function Film() {
   }
   return (
     <div className='film'>
-      <video controls src={data.url} id='video'></video>
+      <video controls id='video'>
+        <source src={data.url} type='video/mp4' />
+      </video>
       <div className='film-banner'>
         <div className='film-evaluate'>
           <span>

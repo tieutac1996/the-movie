@@ -1,5 +1,6 @@
 const Movie = require('../models/movie.model');
 const unlinkAsync = require('./removeImage');
+const xoa_dau = require('./xoadau');
 
 module.exports = {
   findAll: (req, res) => {
@@ -32,10 +33,18 @@ module.exports = {
       })
       .catch((err) => res.status(500).json('Error: ' + err));
   },
+  findByTitleTag: (req, res) => {
+    Movie.find({ title_tag: req.params.title })
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => res.status(500).json('Error: ' + err));
+  },
   editMovie: (req, res) => {
     Movie.findById(req.body._id)
       .then((e) => {
         e.title = req.body.title;
+        e.title_tag = xoa_dau(req.body.title).replace(/ /g, '-').toLowerCase();
         e.tags = req.body.newTags;
         e.image = req.body.image;
         e.poster = req.body.poster;
@@ -90,6 +99,7 @@ module.exports = {
     const duration = req.body.duration;
     const description = req.body.description;
     const type = req.body.type;
+    const title_tag = xoa_dau(req.body.title).replace(/ /g, '-').toLowerCase();
     const newMovie = new Movie({
       title,
       title_en,
@@ -104,6 +114,7 @@ module.exports = {
       evaluate,
       type,
       poster,
+      title_tag,
     });
     newMovie
       .save()

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 MovieBoxSlide.propTypes = {
   data: PropTypes.array,
 };
@@ -14,11 +15,13 @@ function MovieBoxSlide(props) {
   if (!data) {
     return <div></div>;
   }
-
   return (
     <div className='movieBox'>
+      <Helmet>
+        <title>Phim</title>
+      </Helmet>
       {data.map((data, key) => (
-        <Link to={`/movie/${data._id}`} key={key}>
+        <Link to={`/movie/${data.title_tag}`} key={key}>
           <div className='movieBox-items'>
             <div>
               <img className='movieBox-img' src={data.poster} alt='' />

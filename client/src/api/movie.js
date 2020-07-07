@@ -118,6 +118,20 @@ export async function getMovieForID(id) {
     });
   return response.data;
 }
+export async function getMovieForTitleTag(title) {
+  let response = {};
+  await axios({
+    url: `${process.env.REACT_APP_API_URL}/api/movie/title/${title}`,
+    method: 'GET',
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return response.data[0];
+}
 
 export async function getMovieTagsForID(id) {
   let response = {};
