@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { getALlDataBanner } from 'api/banner';
 import './index.scss';
+import { Link } from 'react-router-dom';
 function Film() {
   const [data, setData] = useState();
   const [height, setHeight] = useState({ height: '600px' });
@@ -27,15 +28,6 @@ function Film() {
   }
   return (
     <div className='film' style={height}>
-      <iframe
-        title={data.title}
-        src={data.url}
-        frameBorder='0'
-        width='100%'
-        height='640'
-        allowFullScreen
-      />
-
       <div className='film-banner' style={backgroundImage}>
         <div className='film-transparent'>
           <div className='film-evaluate'>
@@ -53,7 +45,9 @@ function Film() {
           <div className='film-description'>{data.description}</div>
           <div className='watch' onClick={handlePlay}>
             <i className='fas fa-play'></i>
-            <span>Xem ngay</span>
+            <Link to={`/movie/${data.url}`}>
+              <span>Xem ngay</span>
+            </Link>
           </div>
           <div className='add-list'>
             <i className='fas fa-plus'></i>

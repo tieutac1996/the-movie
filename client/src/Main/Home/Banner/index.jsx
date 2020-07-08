@@ -42,7 +42,7 @@ function Banner(props) {
               <div className='banner_description'>{map.description}</div>
               <div className='watch'>
                 <i className='fas fa-play'></i>
-                <Link to={`/movie/`}>
+                <Link to={`/movie/${map.url}`}>
                   <span>Xem ngay</span>
                 </Link>
               </div>

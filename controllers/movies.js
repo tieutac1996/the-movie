@@ -14,6 +14,7 @@ module.exports = {
             data: data,
             pagination: {
               _page: req.query._page,
+              _limit: req.query._limit,
               _total: movie.length,
             },
           });
@@ -21,7 +22,7 @@ module.exports = {
         .catch((err) => res.status(50).json(err));
     } else {
       Movie.find()
-        .then((movie) => res.json(movie))
+        .then((movie) => res.json({ data: movie }))
         .catch((err) => res.status(50).json(err));
     }
   },

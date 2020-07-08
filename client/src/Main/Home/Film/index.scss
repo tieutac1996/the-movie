@@ -27,6 +27,7 @@
       }
       span {
         font-size: 20px;
+        color: white;
       }
       background-color: red;
       padding: 10px 30px;
@@ -125,10 +126,6 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  iframe {
-    height: 200px !important;
   }
 }
 @media screen and (max-width: 720px) {

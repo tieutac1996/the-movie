@@ -18,7 +18,7 @@ function TabFooter() {
   }
   return (
     <div className='tabFooter'>
-      <MovieBoxSlide data={data} autoplay={true} />
+      <MovieBoxSlide data={data.data} autoplay={true} />
     </div>
   );
 }

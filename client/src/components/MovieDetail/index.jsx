@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Original from './Original';
 import Tab from './Tab';
+import Iframe from './Iframe';
+import './index.scss';
+
 function MovieDetail() {
   const params = useParams();
   const [data, setData] = useState();
@@ -24,6 +27,7 @@ function MovieDetail() {
         <title>{data.title}</title>
       </Helmet>
       <div className='detail-movie'>
+        <Iframe data={data} />
         <Original data={data} />
         <Tab data={data} />
       </div>

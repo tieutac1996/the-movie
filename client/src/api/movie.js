@@ -1,5 +1,6 @@
 import xoa_dau from 'Config/xoadau';
 import axios from 'axios';
+import queryString from 'querystring';
 
 export async function addMovie(data, image, tags, type, poster) {
   let response = {};
@@ -89,10 +90,13 @@ export async function deleteMovie(id, filename) {
   return response;
 }
 
-export async function getAllMovie() {
+export async function getAllMovie(params) {
+  const p = queryString.stringify(params);
   let response = {};
   await axios({
-    url: `${process.env.REACT_APP_API_URL}/api/movie`,
+    url:
+      `${process.env.REACT_APP_API_URL}/api/movie?${p}` ||
+      `${process.env.REACT_APP_API_URL}/api/movie`,
     method: 'GET',
   })
     .then((res) => {

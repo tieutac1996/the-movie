@@ -14,6 +14,9 @@ function Original(props) {
   if (!data) {
     return <div></div>;
   }
+  function handlePlay() {
+    document.getElementsByClassName('iframe-embed')[0].style.zIndex = '9';
+  }
   return (
     <div className='top'>
       <div className='content'>
@@ -21,7 +24,7 @@ function Original(props) {
         <div className='duration'>Thời lượng: {data.duration} phút</div>
         <div className='description'>{data.description}</div>
         <div className='button'>
-          <div className='watch'>
+          <div className='watch' onClick={handlePlay}>
             <i className='fas fa-play'></i>
             <span>Xem ngay</span>
           </div>
