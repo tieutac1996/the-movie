@@ -17,7 +17,6 @@ function MovieDetail() {
     }
     fetchData();
   }, [params.title]);
-
   if (!data) {
     return <div></div>;
   }

@@ -10,7 +10,6 @@ function Main() {
       <Switch>
         <Route path='/' exact component={Home}></Route>
         <Route path='/movie' component={Movie} />
-        <Route component={NotFound} />
       </Switch>
     </div>
   );

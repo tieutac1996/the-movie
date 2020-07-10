@@ -6,6 +6,7 @@ import Admin from './Admin';
 import './app.css';
 import store from './components/redux/store';
 import Main from 'Main';
+import NotFound from 'components/NotFound';
 
 function App() {
   const admin = window.location.pathname.search('/admin');
@@ -17,6 +18,7 @@ function App() {
           {admin === -1 && <Main />}
           <Switch>
             <Route path='/admin' component={Admin} />
+            <Route component={NotFound} />
           </Switch>
         </Router>
       </Provider>

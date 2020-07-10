@@ -9,14 +9,26 @@ function TabMiddle() {
   const rows = 2;
   useEffect(() => {
     async function fetchData() {
-      const sci_fi = await getMovieForTag('sci-fi');
-      const action = await getMovieForTag('action');
-      const adventure = await getMovieForTag('adventure');
-      const horror = await getMovieForTag('horror');
-      const sport = await getMovieForTag('sport');
-      const comedy = await getMovieForTag('comedy');
-      const war = await getMovieForTag('war');
-      const anime = await getMovieForTag('anime');
+      const tags = [
+        'sci-fi',
+        'action',
+        'adventure',
+        'horror',
+        'sport',
+        'comedy',
+        'war',
+        'anime',
+      ];
+      const [
+        sci_fi,
+        action,
+        adventure,
+        horror,
+        sport,
+        comedy,
+        war,
+        anime,
+      ] = await Promise.all(tags.map((map) => getMovieForTag(map)));
       setData({
         sci: sci_fi.data,
         action: action.data,

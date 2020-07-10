@@ -31,7 +31,6 @@ function MovieEdit() {
   if (!data || !tags || !type) {
     return <div></div>;
   }
-  console.log(data.poster);
   const urlPreviewImg = file ? (
     <img src={preview.imagePreviewUrl} alt='' />
   ) : (

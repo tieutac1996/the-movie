@@ -10,3 +10,12 @@
   margin: 120px 0 0;
   line-height: 2;
 }
+
+@media screen and (max-width: 480px) {
+  .movie-detail_tab {
+    .tab-content {
+      padding: 0 20px;
+    }
+    margin-top: 40px;
+  }
+}

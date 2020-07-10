@@ -1,93 +1,38 @@
-import React from 'react';
+import { getAllMovie } from 'api/movie';
 import PropTypes from 'prop-types';
-import MOVIE from 'Config/movie.input';
+import React from 'react';
 import { Form } from 'react-bootstrap';
 import './index.scss';
-import { useState } from 'react';
-import xoa_dau from 'Config/xoadau';
 Filter.propTypes = {
-  data: PropTypes.object,
   onChange: PropTypes.func,
 };
 
 function Filter(props) {
-  const { data, onChange } = props;
-  if (!data) {
-    return <div></div>;
-  }
-  function handleChange(e) {
+  const { onChange } = props;
+
+  async function handleChange(e) {
     const value = e.target.value;
-    if (value === 'name') {
-      const a = data.data.sort((a, b) => {
-        let nameA = xoa_dau(a.title).toLowerCase();
-        let nameB = xoa_dau(b.title).toLowerCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      });
-      onChange({ data: a, pagination: data.pagination });
-    }
-    if (value === 'rename') {
-      const a = data.data.sort((a, b) => {
-        let nameA = xoa_dau(a.title).toLowerCase();
-        let nameB = xoa_dau(b.title).toLowerCase();
-        if (nameA < nameB) {
-          return 1;
-        }
-        if (nameA > nameB) {
-          return -1;
-        }
-        return 0;
-      });
-      onChange({ data: a, pagination: data.pagination });
-    }
-    if (value === 'date') {
-      const a = data.data.sort((a, b) => {
-        let nameA = xoa_dau(a.createdAt).toLowerCase();
-        let nameB = xoa_dau(b.createdAt).toLowerCase();
-        if (nameA < nameB) {
-          return 1;
-        }
-        if (nameA > nameB) {
-          return -1;
-        }
-        return 0;
-      });
-      onChange({ data: a, pagination: data.pagination });
-    }
-    if (value === 'redate') {
-      const a = data.data.sort((a, b) => {
-        let nameA = xoa_dau(a.createdAt).toLowerCase();
-        let nameB = xoa_dau(b.createdAt).toLowerCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      });
-      onChange({ data: a, pagination: data.pagination });
-    }
+    const params = {
+      _page: 1,
+      _limit: 10,
+      _name: value,
+    };
+    onChange(await getAllMovie(params));
   }
+
   return (
     <div className='filter'>
-      <div className='tab'>
-        {MOVIE.tags.map((map, key) => (
-          <button key={key}>{map.name}</button>
-        ))}
-      </div>
       <Form className='select'>
         <Form.Group>
-          <Form.Control as='select' onChange={handleChange} defaultValue='date'>
-            <option value='name'>Tên A &uarr; Z</option>
-            <option value='rename'>Tên A &darr; Z</option>
-            <option value='date'>Mới nhất</option>
-            <option value='redate'>Cũ nhất</option>
+          <Form.Control
+            as='select'
+            onChange={handleChange}
+            defaultValue='latest'
+          >
+            <option value='a'>Tên A &uarr; Z</option>
+            <option value='z'>Tên Z &darr; A</option>
+            <option value='latest'>Năm phát hành (mới nhất)</option>
+            <option value='oldest'>Năm phát hành (cũ nhất)</option>
           </Form.Control>
         </Form.Group>
       </Form>

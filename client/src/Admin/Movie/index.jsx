@@ -13,10 +13,12 @@ function Movie() {
     }
     fetchData();
   }, []);
-
+  if(!movieData){
+    return<div></div>
+  }
   return (
     <div>
-      <MovieList movieData={movieData} />
+      <MovieList movieData={movieData.data} />
       <Switch>
         <Route path='/admin/movie/edit/:id' component={MovieEdit} />
         <Route path='/admin/movie/add' component={MovieAdd} />

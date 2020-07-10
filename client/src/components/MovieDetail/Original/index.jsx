@@ -15,7 +15,8 @@ function Original(props) {
     return <div></div>;
   }
   function handlePlay() {
-    document.getElementsByClassName('iframe-embed')[0].style.zIndex = '9';
+    document.getElementsByClassName('iframe')[0].style.cssText =
+      'z-index:999;display:flex';
   }
   return (
     <div className='top'>

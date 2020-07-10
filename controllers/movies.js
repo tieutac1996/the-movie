@@ -4,27 +4,83 @@ const xoa_dau = require('./xoadau');
 
 module.exports = {
   findAll: (req, res) => {
-    if (req.query._page) {
-      Movie.find()
-        .then((movie) => {
-          const start = req.query._page * req.query._limit - req.query._limit;
-          const end = start + parseInt(req.query._limit);
-          const data = movie.slice(start, end);
-          return res.json({
-            data: data,
+    if (req.query._name === 'a') {
+      return Movie.find()
+        .sort({
+          title_tag: 1,
+        })
+        .then((movie) =>
+          res.json({
+            data: movie,
             pagination: {
               _page: req.query._page,
               _limit: req.query._limit,
-              _total: movie.length,
             },
-          });
-        })
-        .catch((err) => res.status(50).json(err));
-    } else {
-      Movie.find()
-        .then((movie) => res.json({ data: movie }))
-        .catch((err) => res.status(50).json(err));
+          })
+        )
+        .catch((err) => res.status(500).json(err));
     }
+    if (req.query._name === 'z') {
+      return Movie.find()
+        .sort({
+          title_tag: -1,
+        })
+        .then((movie) =>
+          res.json({
+            data: movie,
+            pagination: {
+              _page: req.query._page,
+              _limit: req.query._limit,
+            },
+          })
+        )
+        .catch((err) => res.status(500).json(err));
+    }
+    if (req.query._name === 'latest') {
+      return Movie.find()
+        .sort({
+          year: -1,
+        })
+        .then((movie) =>
+          res.json({
+            data: movie,
+            pagination: {
+              _page: req.query._page,
+              _limit: req.query._limit,
+            },
+          })
+        )
+        .catch((err) => res.status(500).json(err));
+    }
+    if (req.query._name === 'oldest') {
+      return Movie.find()
+        .sort({
+          year: 1,
+        })
+        .then((movie) =>
+          res.json({
+            data: movie,
+            pagination: {
+              _page: req.query._page,
+              _limit: req.query._limit,
+            },
+          })
+        )
+        .catch((err) => res.status(500).json(err));
+    }
+
+    return Movie.find()
+      .then((movie) => {
+        return res.json({
+          data: movie,
+          pagination: {
+            _page: req.query._page,
+            _limit: req.query._limit,
+            _total: movie.length,
+          },
+        });
+      })
+      .catch((err) => res.status(500).json(err));
   },
 
   findById: (req, res) => {
@@ -58,6 +114,7 @@ module.exports = {
         e.duration = req.body.duration;
         e.description = req.body.description;
         e.type = req.body.newType;
+        e.year = req.body.release_date.slice(req.body.release_date.length - 4);
         if (req.files.image) {
           // Định dạng file giống nhau sẽ ghi đè
           e.image = '/uploads/film/' + req.files.image[0].filename;
@@ -100,6 +157,7 @@ module.exports = {
     const duration = req.body.duration;
     const description = req.body.description;
     const type = req.body.type;
+    const year = req.body.release_date.slice(req.body.release_date.length - 4);
     const title_tag = xoa_dau(req.body.title).replace(/ /g, '-').toLowerCase();
     const newMovie = new Movie({
       title,
@@ -116,6 +174,7 @@ module.exports = {
       type,
       poster,
       title_tag,
+      year,
     });
     newMovie
       .save()

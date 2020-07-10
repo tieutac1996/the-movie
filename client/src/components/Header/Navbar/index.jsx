@@ -37,9 +37,15 @@ function Navbar() {
       <div className='menu' style={styleMenu}>
         <div className='menu_content'>
           <div className='link'>
-            <Link to='/'>Trang chủ</Link>
-            <Link to='/movie'>Phim</Link>
-            <Link to='/series'>Phim bộ</Link>
+            <Link onClick={showDesktop} to='/'>
+              Trang chủ
+            </Link>
+            <Link onClick={showDesktop} to='/movie'>
+              Phim
+            </Link>
+            <Link onClick={showDesktop} to='/series'>
+              Phim bộ
+            </Link>
           </div>
           <div className='search'>
             <input type='search' name='search' placeholder='Search...' />

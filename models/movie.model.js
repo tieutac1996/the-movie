@@ -8,6 +8,7 @@ const movieSchema = new Schema(
     title_tag: { type: String },
     description: { type: String, required: true },
     director: { type: String },
+    year: { type: Number },
     nation: { type: String },
     release_date: { type: String },
     tags: { type: String, required: true },
